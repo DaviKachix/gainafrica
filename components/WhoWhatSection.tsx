@@ -43,7 +43,7 @@ export default function WhoWhatSection() {
           {/* Image */}
           <div className="relative w-full h-80 lg:h-96">
             <Image
-              src="/for.jpg" // replace with your public image
+              src="/for.jpg" 
               alt="Who Should Attend"
               fill
               className="object-cover rounded-xl shadow-lg"
@@ -108,7 +108,7 @@ export default function WhoWhatSection() {
           {/* Image */}
           <div className="relative w-full h-80 lg:h-96 order-1 lg:order-2">
             <Image
-              src="/male.jpg" // replace with your public image
+              src="/male.jpg" 
               alt="What to Expect"
               fill
               className="object-cover rounded-xl shadow-lg"

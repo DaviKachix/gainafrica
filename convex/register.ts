@@ -20,7 +20,7 @@ export const registerUser = mutation({
   },
 
   handler: async ({ db }, args) => {
-    // ✅ Prevent duplicate registration by email
+    // Prevent duplicate registration by email
     const existing = await db
       .query("registrations")
       .withIndex("by_email", q => q.eq("email", args.email))

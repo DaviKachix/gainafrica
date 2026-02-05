@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { useRegisterUser } from "@/hooks/useRegisterUser";
+import { registerUser } from "@/convex/register"; 
+import { convex } from "@/convex/client";
+
 
 // Professions relative to Adventist Ministry
 const professionsList = [
@@ -59,7 +60,6 @@ const africanCountries = [
 
 export default function RegisterPage() {
   const router = useRouter();
-  const registerUserMutation = useRegisterUser();
 
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -123,38 +123,41 @@ export default function RegisterPage() {
 
   const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
-  const submitForm = async () => {
+ const submitForm = async () => {
+  // Validate the current step
   if (!validateStep()) return;
 
   setLoading(true);
 
   try {
-    await registerUserMutation({
+    // Call the remote Convex mutation via client
+    await convex.mutation("registerUser", {
       email: formData.email,
       firstName: formData.firstName,
       middleName: formData.middleName,
       lastName: formData.lastName,
       gender: formData.gender,
       nationality: formData.nationality,
-      country:
-        formData.nationality === "africa"
-          ? formData.africanCountry
-          : formData.nonAfricanCountry,
+      africanCountry: formData.nationality === "africa" ? formData.africanCountry : undefined,
+      nonAfricanCountry: formData.nationality === "non-africa" ? formData.nonAfricanCountry : undefined,
       profession: formData.profession,
       organization: formData.organization,
       phone: formData.phone,
       foodPreference: formData.foodPreference,
       ageGroup: formData.ageGroup,
-      otherInfo: formData.otherInfo,
+      otherInfo: formData.otherInfo || undefined,
     });
 
+    // Redirect to thank-you page
     router.push("/thank-you");
-  } catch (error) {
-    console.error(error);
-    alert("Submission failed. Please try again.");
+  } catch (error: any) {
+    console.error("Convex submission error:", error);
+    alert(error.message || "Submission failed. Please try again.");
     setLoading(false);
   }
 };
+
+
 
 
   const stepVariants = {

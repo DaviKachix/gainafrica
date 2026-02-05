@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import SiteAside from "@/components/site-aside";
+import { ConvexClientProvider } from "@/components/convex-client-provider";
 
 export const metadata: Metadata = {
   title: "GAiN Tanzania 2026",
@@ -26,10 +27,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="relative z-10 min-h-screen sm:pr-20 lg:pr-24 transition-all duration-300">
           {children}
         </main>
-
         {/* Footer */}
         <SiteFooter />
+
+        
       </body>
     </html>
   );
 }
+

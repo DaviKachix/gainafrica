@@ -51,7 +51,7 @@ export function HeroSection() {
   className="absolute inset-0 bg-[url('/bible-laptop.jpg')] bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-1000 hover:scale-110 filter brightness-75 contrast-125"
 />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-white/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-black/50 to-white/90" />
       </div>
 
       {/* Content */}
